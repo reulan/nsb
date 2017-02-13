@@ -1,31 +1,44 @@
-import discord
-from discord.ext import commands
 import random
 import logging
 import json
-1
+
+import discord
+from discord.ext import commands
+
+import wowapi
+import cmd_info
+
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-description = '''An example bot to showcase the discord.ext.commands extensionmodule.
+description = """Noobshack discord bot."""
 
-There are a number of utility commands being showcased here.'''
-bot = commands.Bot(command_prefix='?', description=description)
+bot = commands.Bot(command_prefix='!', description=description)
 
 @bot.event
 async def on_ready():
-    print('Logged in as')
+    print('Logged into server:')
     print(bot.user.name)
-    print(bot.user.id)
-    print('------')
+    print(bot.user.id),
+
+# World of Warcraft API subcommands
+@bot.group(pass_context=True)
+async def wow(ctx):
+    """Command helper for the World of Warcraft API."""
+    if ctx.invoked_subcommand is None:
+        await bot.say(info.wow_api_help)
+
+@cool.command(name='item')
+async def _bot():
+    """Is the bot cool?"""
+    await bot.say('Of course, nsb is legit!!!')
 
 @bot.command()
-async def add(left : int, right : int):
-    """Adds two numbers together."""
-    await bot.say(left + right)
+async def wow(wow_command_list):
+    await bot.say("wow test")
 
 @bot.command()
 async def roll(dice : str):
