@@ -21,14 +21,10 @@ class WowAPI():
 # URL settings
     #api_url = { "en_US": "us.api.battle.net" }
 
-    def _url(self, endpoint, parameters):
+    def _url(self, endpoint):
         """Returns a URL endpoint"""
         #url = ('https://{url}/wow/{ep}').format(url=api_url[region], ep=endpoint)
         url = ('https://us.api.battle.net/wow/{ep}').format(ep=endpoint)
-        print(url)
-        params = parameters
-        if 'api_key' not in params.keys():
-            params.update('api_key', api_key)
         return url
 
 # Locale and Language settings
@@ -45,10 +41,16 @@ class WowAPI():
         return reg
 
 # Request handling
-    def get_resource(self, resource, parameters):
-        response = requests.get(self._url(resource, parameters))
+    def get_resource(self, resource, _parameters):
+        parameters = _parameters
+        if 'api_key' not in parameters.keys():
+            parameters['apikey'] = api_key
+            #params['api_key'] = api_key
+
+        response = requests.get(self._url(resource), params=parameters)
+        print(response.url)
         print(response)
-        print(reponse.json())
+        print(response.json())
         return response
 
 # Item API
