@@ -5,40 +5,25 @@ import json
 import discord
 from discord.ext import commands
 
-import wowapi
-import cmd_info
+import api.wowapi
 
+# Logging
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
+# Discord API specific 
 description = """Noobshack discord bot."""
-
 bot = commands.Bot(command_prefix='!', description=description)
 
+# Discord bot command funtions
 @bot.event
 async def on_ready():
     print('Logged into server:')
     print(bot.user.name)
     print(bot.user.id),
-
-# World of Warcraft API subcommands
-@bot.group(pass_context=True)
-async def wow(ctx):
-    """Command helper for the World of Warcraft API."""
-    if ctx.invoked_subcommand is None:
-        await bot.say(info.wow_api_help)
-
-@cool.command(name='item')
-async def _bot():
-    """Is the bot cool?"""
-    await bot.say('Of course, nsb is legit!!!')
-
-@bot.command()
-async def wow(wow_command_list):
-    await bot.say("wow test")
 
 @bot.command()
 async def roll(dice : str):
@@ -75,24 +60,41 @@ async def cool(ctx):
     In reality this just checks if a subcommand is being invoked.
     """
     if ctx.invoked_subcommand is None:
-        await bot.say('No, {0.subcommand_passed} is not cool'.format(ctx))
+        await bot.say('Yes, {0.subcommand_passed} is leet h4x0|2 aka cool.'.format(ctx))
 
-@cool.command(name='nsb')
-async def _bot():
-    """Is the bot cool?"""
-    await bot.say('Of course, nsb is legit!!!')
 
 def load_credentials():
     with open('credentials.json') as f:
         return json.load(f)
 
+# World of Warcraft API subcommands
+def load_wowapi(apikey):
+    print('World of Warcraft API loaded as \'wa\'')
+    wa = api.wowapi.WowAPI()
+    wa.apikey = apikey
+    return wa
+
+@bot.group(pass_context=True)
+async def wow(ctx):
+    """World of Warcraft API extension."""
+    if ctx.invoked_subcommand is None:
+        text = wa.get_item(18803)
+        await bot.say(text)
+
+@wow.command(name='wow')
+async def _bot():
+    """World of Warcraft API helper (Work in progress)"""
+    await bot.say('wow test')
+
 if __name__ == '__main__':
     credentials = load_credentials()
     bot.client_id = credentials['client_id']
     bot.bots_key = credentials['token']
+    wa = load_wowapi(credentials['apikey'])
 
     bot.run(bot.bots_key)
 
+    # Log handlers 
     handlers = log.handlers[:]
     for hdlr in handlers:
         hdlr.close()

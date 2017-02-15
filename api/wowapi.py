@@ -7,17 +7,19 @@ WoW API - Item Level integration
 
 import requests
 import json
-import secret_info as si
-
-global api_key
-api_key = si.wow_api_key
 
 class WowAPI():
     """World of Warcraft API class
         Attributes:
             locale
             base_url
+            parameters
+            apikey
     """
+# API Key
+    def __init__(self):
+        self.apikey = None
+
 # URL settings
     #api_url = { "en_US": "us.api.battle.net" }
 
@@ -30,8 +32,7 @@ class WowAPI():
     def _parameters(self, parameters):
         """Returns a dictionary of parameters including the API key."""
         if 'api_key' not in parameters.keys():
-            parameters['apikey'] = api_key
-            #params['api_key'] = api_key
+            parameters['apikey'] = self.apikey
         return parameters
 
 # Locale and Language settings
@@ -51,16 +52,14 @@ class WowAPI():
     def get_resource(self, resource, params):
         response = requests.get(self._url(resource), self._parameters(params))
         print(response.url)
-        print(response)
-        print(response.json())
-        return response
+        return response.json()
 
 # Item API
  # Item
     def get_item(self, itemId):
         endpoint = ('item/{iId}'.format(iId=itemId))
         params = {'itemId': itemId,  'locale': self.region}
-        self.get_resource(endpoint, params)
+        return self.get_resource(endpoint, params)
 
 # Character Profile API
 # Guild Profile API
