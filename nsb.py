@@ -95,7 +95,7 @@ if __name__ == '__main__':
     bot.run(bot.bots_key)
 
     # Log handlers 
-    handlers = log.handlers[:]
+    handlers = logger.handlers[:]
     for hdlr in handlers:
         hdlr.close()
-        log.removeHandler(hdlr)
+        logger.removeHandler(hdlr)
