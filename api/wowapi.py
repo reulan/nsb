@@ -27,6 +27,13 @@ class WowAPI():
         url = ('https://us.api.battle.net/wow/{ep}').format(ep=endpoint)
         return url
 
+    def _parameters(self, parameters):
+        """Returns a dictionary of parameters including the API key."""
+        if 'api_key' not in parameters.keys():
+            parameters['apikey'] = api_key
+            #params['api_key'] = api_key
+        return parameters
+
 # Locale and Language settings
     region_list = ['en_US']
     region = region_list[0]
@@ -41,13 +48,8 @@ class WowAPI():
         return reg
 
 # Request handling
-    def get_resource(self, resource, _parameters):
-        parameters = _parameters
-        if 'api_key' not in parameters.keys():
-            parameters['apikey'] = api_key
-            #params['api_key'] = api_key
-
-        response = requests.get(self._url(resource), params=parameters)
+    def get_resource(self, resource, params):
+        response = requests.get(self._url(resource), self._parameters(params))
         print(response.url)
         print(response)
         print(response.json())
@@ -59,13 +61,18 @@ class WowAPI():
         endpoint = ('item/{iId}'.format(iId=itemId))
         params = {'itemId': itemId,  'locale': self.region}
         self.get_resource(endpoint, params)
-        print('Ran get_item')
-
-if __name__ == '__main__':
-    wa = WowAPI()
-    wa.get_item(18803)
 
 # Character Profile API
 # Guild Profile API
  # Item Set
 # Data Resources
+# PvP API
+    def pvp_leaderboards(self, bracket):
+        # 2v2, 3v3, 5v5, rbg
+        endpoint = ('leaderboards/{brackets}'.format(brackets=bracket))
+        self.get_resource(endpoint)
+
+if __name__ == '__main__':
+    wa = WowAPI()
+    wa.get_item(18803)
+    #wa.pvp_leaderboards('2v2')
