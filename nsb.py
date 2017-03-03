@@ -81,6 +81,8 @@ async def wow(ctx):
         text = wa.get_item(18803)
         await bot.say(text)
 
+# Add subcommands here
+
 @wow.command(name='wow')
 async def _bot():
     """World of Warcraft API helper (Work in progress)"""
