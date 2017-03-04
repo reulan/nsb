@@ -1,3 +1,10 @@
+"""
+mpmsimo
+2/12/2017
+
+nsb.py - Noobshack discord bot
+"""
+
 import random
 import logging
 import json
@@ -6,6 +13,7 @@ import discord
 from discord.ext import commands
 
 import api.wowapi
+import jsonparse
 
 # Logging
 logger = logging.getLogger('discord')
@@ -15,7 +23,7 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 # Discord API specific 
-description = """Noobshack discord bot."""
+description = """NSB discord bot."""
 bot = commands.Bot(command_prefix='!', description=description)
 
 # Discord bot command funtions
@@ -62,7 +70,7 @@ async def cool(ctx):
     if ctx.invoked_subcommand is None:
         await bot.say('Yes, {0.subcommand_passed} is leet h4x0|2 aka cool.'.format(ctx))
 
-
+# Load configuration
 def load_credentials():
     with open('credentials.json') as f:
         return json.load(f)
@@ -78,15 +86,14 @@ def load_wowapi(apikey):
 async def wow(ctx):
     """World of Warcraft API extension."""
     if ctx.invoked_subcommand is None:
-        text = wa.get_item(18803)
-        await bot.say(text)
+        await bot.say('Invalid wow commands given.')
 
 # Add subcommands here
-
-@wow.command(name='wow')
-async def _bot():
-    """World of Warcraft API helper (Work in progress)"""
-    await bot.say('wow test')
+@wow.command(name='item')
+async def item(itemId : str):
+    """Prints item information associated with an itemId."""
+    info = wa.get_item(itemId)
+    await bot.say('Looking up item with ID: {iid}\n{itemInfo}'.format(iid=itemId, itemInfo=info))
 
 if __name__ == '__main__':
     credentials = load_credentials()
