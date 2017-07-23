@@ -9,5 +9,6 @@ mkdir $HOME/owdata
 
 for PLAYER in ${ACCOUNTS[@]};
     do echo $PLAYER
-        curl -s https://owapi.net/api/v3/u/$PLAYER/blob | python -m json.tool | tee $DATADIR/$PLAYER-owdata.json
+        #curl -s https://owapi.net/api/v3/u/$PLAYER/blob | python -m json.tool | tee $DATADIR/$PLAYER-owdata.json
+        curl -s https://owapi.net/api/v3/u/$PLAYER/blob?format=json_pretty | tee $DATADIR/$PLAYER-owdata.json
     done
