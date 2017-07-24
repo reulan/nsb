@@ -1,2 +1,4 @@
-discord.py==0.16.5
+setuptools
+discord.py
+requests
 websockets==3.2

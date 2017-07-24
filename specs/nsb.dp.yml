@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nsb
+  labels:
+    app: nsb
+  namespace: default
+spec:
+  template:
+    metadata:
+      name: nsb
+      labels:
+        app: nsb
+    spec:
+      restartPolicy: Always
+      containers:
+      - image: mpmsimo/nsb:latest
+        imagePullPolicy: Always
+        name: discordbot 
+        resources:
+          limits:
+            cpu: 1
+            memory: 1024M 
+          requests:
+            cpu: 500m
+            memory: 512M
