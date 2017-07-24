@@ -4,16 +4,14 @@ mpmsimo
 
 nsb.py - Noobshack discord bot
 """
-
-import random
-import logging
 import json
+import logging
+import random
 
 import discord
 from discord.ext import commands
 
 import api.wowapi
-import jsonparse
 
 # Logging
 logger = logging.getLogger('discord')
@@ -72,7 +70,7 @@ async def cool(ctx):
 
 # Load configuration
 def load_credentials():
-    with open('credentials.json') as f:
+    with open('config/credentials.json') as f:
         return json.load(f)
 
 # World of Warcraft API subcommands
