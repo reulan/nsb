@@ -95,9 +95,9 @@ async def item(itemId : str):
 
 if __name__ == '__main__':
     credentials = load_credentials()
-    bot.client_id = credentials['client_id']
-    bot.bots_key = credentials['token']
-    wa = load_wowapi(credentials['apikey'])
+    bot.client_id = credentials['discord_client_id']
+    bot.bots_key = credentials['discord_token']
+    wa = load_wowapi(credentials['wow_apikey'])
 
     bot.run(bot.bots_key)
 
