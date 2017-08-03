@@ -1,0 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nsb-api
+  labels:
+    app: nsb
+data:
+  nsb-api.json: |
+    { 
+        "client_id": "279784754247630848",
+        "apikey": "tqunfww3txjhnswgb8k47f8zst2675f5",
+        "token": "Mjc5Nzg0NzU0MjQ3NjMwODQ4.DFc6cw.RkNV6DS0pE6KQUFnC1341XdJEnU"
+    }
