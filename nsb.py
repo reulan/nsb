@@ -70,7 +70,7 @@ async def cool(ctx):
 
 # Load configuration
 def load_credentials():
-    with open('config/credentials.json') as f:
+    with open('config/nsb-api.json') as f:
         return json.load(f)
 
 # World of Warcraft API subcommands
