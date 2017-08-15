@@ -4,8 +4,11 @@ LABEL REPO="https://github.com/mpmsimo/nsb"
 # Upgrade the base OS
 RUN apt-get update && apt-get upgrade -y
 
-# Install packages for python and debugging
-RUN apt-get install -y git vim tar python3.5 python3-pip python3.5-dev libffi-dev
+# Install dev, system, and debug tools
+RUN apt-get install -y git vim tar net-tools curl 
+
+# Install packages for python
+RUN apt-get install -y python3.5 python3-pip python3.5-dev libffi-dev
 
 # Create system directories
 RUN mkdir -p opt/nsb/config
@@ -21,6 +24,7 @@ COPY scripts scripts
 COPY api api
 COPY nsb.py nsb.py
 
+# Running discordbot locally
 CMD ["python3", "nsb.py"]
 
 # Label the the docker image with the GIT_HASH
