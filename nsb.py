@@ -5,23 +5,16 @@ mpmsimo
 nsb.py - Noobshack discord bot
 """
 import json
-import logging
 import random
 
-import discord
 from discord.ext import commands
+import discord
 
 import api.wowapi
-
-# Logging
-logger = logging.getLogger('discord')
-logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
+import logger
 
 # Discord API specific 
-description = """NSB discord bot."""
+description = """noobshack discord bot for n00bshack + Romans."""
 bot = commands.Bot(command_prefix='!', description=description)
 
 # Discord bot command funtions
@@ -100,9 +93,3 @@ if __name__ == '__main__':
     wa = load_wowapi(credentials['wow_apikey'])
 
     bot.run(bot.bots_key)
-
-    # Log handlers 
-    handlers = logger.handlers[:]
-    for hdlr in handlers:
-        hdlr.close()
-        logger.removeHandler(hdlr)
