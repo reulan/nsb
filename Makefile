@@ -6,7 +6,7 @@ IMAGE_NAME := "mpmsimo/nsb"
 PROJECT_ID := "noobshack-164103"
 
 package:
-	docker build --no-cache --build-arg GIT_HASH=$(GIT_HASH) -t $(IMAGE_NAME):$(GIT_HASH) .
+	docker build --build-arg GIT_HASH=$(GIT_HASH) -t $(IMAGE_NAME):$(GIT_HASH) .
 
 bash: package 
 	docker run --rm \

@@ -2,13 +2,11 @@ FROM ubuntu:16.04
 LABEL REPO="https://github.com/mpmsimo/nsb"
 
 # Upgrade the base OS
-RUN apt-get update && apt-get upgrade -y 
-
 # Install dev, system, and debug tools
-RUN apt-get install -y git vim tar curl net-tools
-
 # Install packages for python
-RUN apt-get install -y python3.5 python3-pip python3.5-dev libffi-dev
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y git vim tar curl net-tools && \
+    apt-get install -y python3.5 python3-pip python3.5-dev libffi-dev
 
 # Create system directories
 RUN mkdir -p /usr/bin/nsb/config
