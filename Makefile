@@ -6,7 +6,7 @@ IMAGE_NAME := "mpmsimo/nsb"
 PROJECT_ID := "noobshack-164103"
 
 package:
-	docker build --build-arg GIT_HASH=$(GIT_HASH) -t $(IMAGE_NAME):$(GIT_HASH) .
+	docker build --no-cache --build-arg GIT_HASH=$(GIT_HASH) -t $(IMAGE_NAME):$(GIT_HASH) .
 
 bash: package 
 	docker run --rm \
@@ -19,12 +19,12 @@ run: package
 		-v $(PWD)/credentials.json:/opt/nsb/config/credentials.json \
 		$(IMAGE_NAME):$(GIT_HASH)
 
-# Tag image and upload to GCR
-# Not needed as automated builds are setup for GCR and DockerHub
-tag: 
-	docker tag $(IMAGE_NAME) gcr.io/$(PROJECT_ID)/$(IMAGE_NAME)
-	gcloud docker -- push gcr.io/$(PROJECT_ID)/$(IMAGE_NAME)
+tag: package
+	docker tag $(IMAGE_NAME):$(GIT_HASH) $(IMAGE_NAME):$(GIT_BRANCH)
 
 push: tag
 	docker push $(IMAGE_NAME):$(GIT_HASH)
-	docker push $(IMAGE_NAME):latest
+	docker push $(IMAGE_NAME):$(GIT_BRANCH)
+
+local: clean init package
+

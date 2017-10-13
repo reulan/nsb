@@ -2,10 +2,13 @@ FROM ubuntu:16.04
 LABEL REPO="https://github.com/mpmsimo/nsb"
 
 # Upgrade the base OS
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get upgrade -y 
 
-# Install packages for python and debugging
-RUN apt-get install -y git vim tar python3.5 python3-pip python3.5-dev libffi-dev
+# Install dev, system, and debug tools
+RUN apt-get install -y git vim tar curl net-tools
+
+# Install packages for python
+RUN apt-get install -y python3.5 python3-pip python3.5-dev libffi-dev
 
 # Create system directories
 RUN mkdir -p opt/nsb/config
@@ -17,10 +20,12 @@ RUN pip3 install --upgrade pip
 RUN pip3 install -r config/requirements.txt
 
 # Copy Discord bot and API integrations
+COPY nsb.py nsb.py
+COPY logger.py logger.py
 COPY scripts scripts
 COPY api api
-COPY nsb.py nsb.py
 
+# Running discordbot locally
 CMD ["python3", "nsb.py"]
 
 # Label the the docker image with the GIT_HASH
