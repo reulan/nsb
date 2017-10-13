@@ -44,14 +44,14 @@ class WowAPI():
         if r in region_list:
             reg = r
         else:
-            print("Set region to en_US by default.")
+            logger.info("Set region to en_US by default.")
             reg = 'en_US'
         return reg
 
 # Request handling
     def get_resource(self, resource, params):
         response = requests.get(self._url(resource), self._parameters(params))
-        print(response.url)
+        logger.info(response.url)
         return response.json()
 
 # Item API

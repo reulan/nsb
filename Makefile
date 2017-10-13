@@ -9,14 +9,14 @@ package:
 	docker build --build-arg GIT_HASH=$(GIT_HASH) -t $(IMAGE_NAME):$(GIT_HASH) .
 
 bash: package 
-	docker run --rm \
-		-v $(PWD)/credentials.json:/opt/nsb/config/credentials.json \
+	docker run -it --rm \
+		-v $(PWD)/credentials.json:/usr/bin/nsb/config/credentials.json \
 		$(IMAGE_NAME):$(GIT_HASH) \
         bash
 
 run: package
 	docker run --rm -it\
-		-v $(PWD)/credentials.json:/opt/nsb/config/credentials.json \
+		-v $(PWD)/credentials.json:/usr/bin/nsb/config/credentials.json \
 		$(IMAGE_NAME):$(GIT_HASH)
 
 tag: package

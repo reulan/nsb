@@ -11,7 +11,9 @@ from discord.ext import commands
 import discord
 
 import api.wow_api as wow_api
-import logger
+import logging
+
+logger = logging.getLogger('nsb')
 
 # Discord API specific 
 description = """noobshack discord bot for n00bshack + Romans."""

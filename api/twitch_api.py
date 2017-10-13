@@ -7,6 +7,7 @@ TwitchAPI
 
 import requests
 import json
+import logger
 
 class TwitchAPI():
     """
@@ -34,5 +35,5 @@ class TwitchAPI():
 # Request handling
     def get_resource(self, resource, params):
         response = requests.get(self._url(resource), self._parameters(params))
-        print(response.url)
+        logger.info(response.url)
         return response.json()
