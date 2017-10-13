@@ -11,8 +11,8 @@ RUN apt-get install -y git vim tar curl net-tools
 RUN apt-get install -y python3.5 python3-pip python3.5-dev libffi-dev
 
 # Create system directories
-RUN mkdir -p opt/nsb/config
-WORKDIR opt/nsb
+RUN mkdir -p /usr/bin/nsb/config
+WORKDIR /usr/bin/nsb
 
 # Copy requirements file and install requirements
 COPY requirements.txt config/requirements.txt

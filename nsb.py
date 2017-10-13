@@ -10,7 +10,7 @@ import random
 from discord.ext import commands
 import discord
 
-import api.wowapi
+import api.wow_api as wow_api
 import logger
 
 # Discord API specific 
@@ -62,14 +62,14 @@ async def cool(ctx):
         await bot.say('Yes, {0.subcommand_passed} is leet h4x0|2 aka cool.'.format(ctx))
 
 # Load configuration
-def load_credentials():
-    with open('config/nsb-api.json') as f:
+def load_credentials(filename):
+    with open(filename) as f:
         return json.load(f)
 
 # World of Warcraft API subcommands
-def load_wowapi(apikey):
+def load_wow_api(apikey):
     print('World of Warcraft API loaded as \'wa\'')
-    wa = api.wowapi.WowAPI()
+    wa = wow_api.WowAPI()
     wa.apikey = apikey
     return wa
 
@@ -87,9 +87,9 @@ async def item(itemId : str):
     await bot.say('Looking up item with ID: {iid}\n{itemInfo}'.format(iid=itemId, itemInfo=info))
 
 if __name__ == '__main__':
-    credentials = load_credentials()
+    credentials = load_credentials('credentials.json')
     bot.client_id = credentials['discord_client_id']
     bot.bots_key = credentials['discord_token']
-    wa = load_wowapi(credentials['wow_apikey'])
+    wa = load_wow_api(credentials['wow_apikey'])
 
     bot.run(bot.bots_key)
