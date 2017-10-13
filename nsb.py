@@ -20,9 +20,9 @@ bot = commands.Bot(command_prefix='!', description=description)
 # Discord bot command funtions
 @bot.event
 async def on_ready():
-    print('Logged into server:')
-    print(bot.user.name)
-    print(bot.user.id),
+    logger.info('Logged into server:')
+    logger.info(bot.user.name)
+    logger.info(bot.user.id),
 
 @bot.command()
 async def roll(dice : str):
@@ -68,7 +68,7 @@ def load_credentials(filename):
 
 # World of Warcraft API subcommands
 def load_wow_api(apikey):
-    print('World of Warcraft API loaded as \'wa\'')
+    logger.info('World of Warcraft API loaded as \'wa\'')
     wa = wow_api.WowAPI()
     wa.apikey = apikey
     return wa
