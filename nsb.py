@@ -87,7 +87,7 @@ async def item(itemId : str):
     await bot.say('Looking up item with ID: {iid}\n{itemInfo}'.format(iid=itemId, itemInfo=info))
 
 if __name__ == '__main__':
-    credentials = load_credentials('credentials.json')
+    credentials = load_credentials('config/credentials.json')
     bot.client_id = credentials['discord_client_id']
     bot.bots_key = credentials['discord_token']
     wa = load_wow_api(credentials['wow_apikey'])
