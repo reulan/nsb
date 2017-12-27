@@ -10,7 +10,9 @@ import random
 from discord.ext import commands
 import discord
 
-import api.wow_api as wow_api
+import api.warcraft as warcraft
+import api.battlerite as battlerite
+import api.twitch as twitch
 import logging
 
 logger = logging.getLogger('nsb')
@@ -69,11 +71,17 @@ def load_credentials(filename):
         return json.load(f)
 
 # World of Warcraft API subcommands
-def load_wow_api(apikey):
+def load_warcraft(apikey):
     logger.info('World of Warcraft API loaded as \'wa\'')
-    wa = wow_api.WowAPI()
+    wa = warcraft.WowAPI()
     wa.apikey = apikey
     return wa
+
+def load_battlerite(apikey):
+    logger.info('Battlerite API loaded as \'ba\'')
+    ba = battlerite.BattleriteAPI()
+    ba.apikey = apikey
+    return ba
 
 @bot.group(pass_context=True)
 async def wow(ctx):
@@ -93,6 +101,7 @@ if __name__ == '__main__':
     credentials = load_credentials(filepath)
     bot.client_id = credentials['discord_client_id']
     bot.bots_key = credentials['discord_token']
-    wa = load_wow_api(credentials['wow_apikey'])
+    wa = load_warcraft(credentials['warcraft_apikey'])
+    ba = load_battlerite(credentials['battlerite_apikey'])
 
     bot.run(bot.bots_key)

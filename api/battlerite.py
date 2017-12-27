@@ -1,15 +1,15 @@
 """
 mpmsimo
-2/12/2017
+12/25/17
 
-WoW API - Item Level integration
+Battlerite API
 """
 
 import requests
 import json
 
-class WowAPI():
-    """World of Warcraft API class
+class BattleriteAPI():
+    """Battlerite API
         Attributes:
             locale
             base_url
