@@ -6,6 +6,7 @@
 DATADIR=$HOME/owdata
 
 # Move to file while read ... < accounts
+#for item in $? do:
 ACCOUNTS=('Reulan-1746' 'Rangoris-1209')
 
 # hour, month, day, year (ex. 6-08-04-17)

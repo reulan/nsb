@@ -72,6 +72,5 @@ class BattleriteAPI():
         self.get_resource(endpoint)
 
 if __name__ == '__main__':
-    wa = WowAPI()
-    wa.get_item(18803)
+    wa = BattleriteAPI()
     #wa.pvp_leaderboards('2v2')
