@@ -1,5 +1,6 @@
 credentials.json
 discord.log*
+nsb.cm.yml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
