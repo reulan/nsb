@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nsb
+  labels:
+    app: nsb
+    task: discordbot 
+  namespace: default
+spec:
+  template:
+    metadata:
+      name: nsb
+      labels:
+        app: nsb
+        task: discordbot
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: ns-dockerhub
+      containers:
+      - image: mpmsimo/nsb:master
+        command: ["python3", "nsb.py"]
+        imagePullPolicy: Always
+        name: discordbot 
+        resources:
+          limits:
+            cpu: 50m 
+            memory: 64M 
+          requests:
+            cpu: 50m
+            memory: 64M
+        volumeMounts:
+        - mountPath: /usr/bin/nsb/config/credentials.json
+          name: credentials
+          subPath: credentials.json
+          readOnly: true
+      volumes:
+      - name: credentials
+        configMap:
+          name: nsb

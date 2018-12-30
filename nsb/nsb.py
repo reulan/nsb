@@ -2,21 +2,23 @@
 mpmsimo
 2/12/2017
 
-nsb.py - Noobshack discord bot
+nsb.py - n00bshack Discord bot
 """
 import json
+import logging
 import random
 
 from discord.ext import commands
 import discord
 
-import api.wow_api as wow_api
-import logging
+import api.ffxiv as ffxiv_api
+import api.twitch as twitch_api
+import api.warcraft as wow_api
 
 logger = logging.getLogger('nsb')
 
 # Discord API specific 
-description = """noobshack discord bot for n00bshack + Romans."""
+description = """noobshack discord bot"""
 bot = commands.Bot(command_prefix='!', description=description)
 
 # Discord bot command funtions
@@ -42,12 +44,6 @@ async def roll(dice : str):
 async def choose(*choices : str):
     """Chooses between multiple choices."""
     await bot.say(random.choice(choices))
-
-@bot.command()
-async def repeat(times : int, content='repeating...'):
-    """Repeats a message multiple times."""
-    for i in range(times):
-        await bot.say(content)
 
 @bot.command()
 async def joined(member : discord.Member):
