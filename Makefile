@@ -27,4 +27,3 @@ push: tag
 	docker push $(IMAGE_NAME):$(GIT_BRANCH)
 
 local: clean init package
-
