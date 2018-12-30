@@ -18,10 +18,10 @@ RUN pip3 install --upgrade pip
 RUN pip3 install -r config/requirements.txt
 
 # Copy Discord bot and API integrations
-COPY nsb.py nsb.py
-COPY logger.py logger.py
+COPY nsb/nsb.py nsb.py
+COPY nsb/logger.py logger.py
 COPY scripts scripts
-COPY api api
+COPY nsb/api api
 
 # Running discordbot locally
 CMD ["python3", "nsb.py"]

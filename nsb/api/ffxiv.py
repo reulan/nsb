@@ -1,8 +1,5 @@
 """
-mpmsimo
-12/28/2017
-
-FFXIV API
+Final Fantasy XIV API
 https://xivapi.com/
 """
 
@@ -61,17 +58,6 @@ class FFXIVAPI():
         endpoint = ('item/{iId}'.format(iId=itemId))
         params = {'itemId': itemId,  'locale': self.region}
         return self.get_resource(endpoint, params)
-
-# Character Profile API
-# Guild Profile API
- # Item Set
-# Data Resources
-# PvP API
-    def pvp_leaderboards(self, bracket):
-        # 2v2, 3v3, 5v5, rbg
-        endpoint = ('leaderboards/{brackets}'.format(brackets=bracket))
-        self.get_resource(endpoint)
-
 if __name__ == '__main__':
     wa = WowAPI()
     wa.get_item(18803)
